@@ -1,0 +1,325 @@
+/*
+
+
+
+
+Microsoft (R) Windows Debugger Version 10.0.17763.1 AMD64
+Copyright (c) Microsoft Corporation. All rights reserved.
+
+Opened \\.\pipe\com_2
+Waiting to reconnect...
+Connected to Windows 7 7601 x64 target at (Wed Jul 24 10:43:15.740 2019 (UTC - 7:00)), ptr64 TRUE
+Kernel Debugger connection established.
+Symbol search path is: srv*
+Executable search path is: 
+Windows 7 Kernel Version 7601 MP (1 procs) Free x64
+Built by: 7601.17514.amd64fre.win7sp1_rtm.101119-1850
+Machine Name:
+Kernel base = 0xfffff800`0261d000 PsLoadedModuleList = 0xfffff800`02862e90
+System Uptime: not available
+Break instruction exception - code 80000003 (first chance)
+*******************************************************************************
+*                                                                             *
+*   You are seeing this message because you pressed either                    *
+*       CTRL+C (if you run console kernel debugger) or,                       *
+*       CTRL+BREAK (if you run GUI kernel debugger),                          *
+*   on your debugger machine's keyboard.                                      *
+*                                                                             *
+*                   THIS IS NOT A BUG OR A SYSTEM CRASH                       *
+*                                                                             *
+* If you did not intend to break into the debugger, press the "g" key, then   *
+* press the "Enter" key now.  This message might immediately reappear.  If it *
+* does, press "g" and "Enter" again.                                          *
+*                                                                             *
+*******************************************************************************
+nt!RtlpBreakWithStatusInstruction:
+fffff800`02695490 cc              int     3
+kd> bp termdd!IcaBindChannel+0x55 ".printf \"rsi=%d and rbp=%d\\n\", rsi, rbp;dd rdi;.echo"
+kd> bp termdd!IcaBindVirtualChannels+0x19e ".printf \"We got a MS_T120, r8=%d\\n\",r8;dd rcx;r $t0=rcx;.echo"
+kd> kb
+ # RetAddr           : Args to Child                                                           : Call Site
+00 fffff800`0267ae36 : 00000000`00000001 00000000`00015cd2 fffff780`00000320 00000000`0002625a : nt!RtlpBreakWithStatusInstruction
+01 fffff800`02c1b1c0 : 00000000`00000000 fffff800`03c54a40 fffff800`02c373c0 00000000`00000000 : nt! ?? ::FNODOBFM::`string'+0x6c40
+02 fffff800`02699b73 : 00000000`00000000 fffff800`02c373c0 00000000`00000000 00000000`00000000 : hal!HalpRtcClockInterrupt+0x130
+03 fffff880`03ef39c2 : fffff800`026a6f09 00000000`ffffffed 00000252`4dba8307 fffff800`0281dcc0 : nt!KiInterruptDispatchNoLock+0x163
+04 fffff800`026a6f09 : 00000000`ffffffed 00000252`4dba8307 fffff800`0281dcc0 00000000`00000001 : intelppm!C1Halt+0x2
+05 fffff800`0269533c : fffff800`0280fe80 fffff800`00000000 00000000`00000000 fffff880`00fd4f5c : nt!PoIdle+0x52a
+06 00000000`00000000 : fffff800`03c55000 fffff800`03c4f000 fffff800`03c54c00 00000000`00000000 : nt!KiIdleLoop+0x2c
+kd> g
+rsi=31 and rbp=5
+fffffa80`01acf500  00000002 00000000 03dc0320 fffff880
+fffffa80`01acf510  00000002 00000000 01acf580 fffffa80
+fffffa80`01acf520  018df350 fffffa80 00000000 00000000
+fffffa80`01acf530  00800001 00000000 00000000 00000000
+fffffa80`01acf540  00000000 00000000 01bb9b60 fffffa80
+fffffa80`01acf550  00000004 00000000 00000001 00000000
+fffffa80`01acf560  00000000 00000000 00000000 00000000
+fffffa80`01acf570  00000000 00000000 00000000 00000000
+
+termdd!IcaBindChannel+0x55:
+fffff880`03db8f1d 4889bcc8e0000000 mov     qword ptr [rax+rcx*8+0E0h],rdi
+kd> kb
+ # RetAddr           : Args to Child                                                           : Call Site
+00 fffff880`03db8d8f : fffffa80`01acf500 fffffa80`036a6790 fffffa80`0359e11b 00000000`00000005 : termdd!IcaBindChannel+0x55
+01 fffff880`03db6e62 : 00000000`00000005 fffffa80`030b66f0 00000000`00000000 fffffa80`f8a0022b : termdd!IcaAllocateChannel+0x147
+02 fffff880`03dc2154 : 00000000`00000000 fffff880`043c5570 fffffa80`0359e10b 00000000`00000000 : termdd!IcaCreateChannel+0x7e
+03 fffff880`03db9748 : 00000000`00000001 fffffa80`036a6aa0 00000000`00000000 fffffa80`02fa4cc8 : termdd!IcaCreate+0x14c
+04 fffff800`0299b495 : 00000000`00000025 00000000`00000025 fffffa80`02fa4cc8 fffffa80`028e6760 : termdd!IcaDispatch+0x2d4
+05 fffff800`02997d38 : fffffa80`028ae990 00000000`00000000 fffffa80`02fa4b10 fffffa80`00000001 : nt!IopParseDevice+0x5a5
+06 fffff800`02998f56 : 00000000`00000000 fffffa80`02fa4b10 fffff880`043c5900 fffffa80`018f3080 : nt!ObpLookupObjectName+0x588
+07 fffff800`0299a85c : 00000000`00000000 00000000`00000000 00000000`00000001 ffffffff`ffffffff : nt!ObOpenObjectByName+0x306
+08 fffff800`029a5478 : 00000000`02071dd0 fffff880`c0100000 00000000`03fbe710 00000000`03fbe700 : nt!IopCreateFile+0x2bc
+09 fffff800`0269c8d3 : fffffa80`01bb9b60 0000007f`ffffffff fffff880`043c5a88 00000980`00000000 : nt!NtCreateFile+0x78
+0a 00000000`771f186a : 000007fe`f8bf14b2 00000000`c0000017 00000000`000010f0 00000000`00000008 : nt!KiSystemServiceCopyEnd+0x13
+0b 000007fe`f8bf14b2 : 00000000`c0000017 00000000`000010f0 00000000`00000008 00000000`00000718 : ntdll!ZwCreateFile+0xa
+0c 00000000`c0000017 : 00000000`000010f0 00000000`00000008 00000000`00000718 00000000`00000000 : 0x000007fe`f8bf14b2
+0d 00000000`000010f0 : 00000000`00000008 00000000`00000718 00000000`00000000 00000000`00000000 : 0xc0000017
+0e 00000000`00000008 : 00000000`00000718 00000000`00000000 00000000`00000000 00000000`00000003 : 0x10f0
+0f 00000000`00000718 : 00000000`00000000 00000000`00000000 00000000`00000003 00000000`00000003 : 0x8
+10 00000000`00000000 : 00000000`00000000 00000000`00000003 00000000`00000003 00000000`00000000 : 0x718
+kd> g
+rsi=31 and rbp=5
+fffffa80`01b1e010  00000002 00000000 03dc0320 fffff880
+fffffa80`01b1e020  00000002 00000000 01b1e090 fffffa80
+fffffa80`01b1e030  01c23468 fffffa80 00000000 00000000
+fffffa80`01b1e040  00800001 00000000 00000000 00000000
+fffffa80`01b1e050  00000000 00000000 01bdbb60 fffffa80
+fffffa80`01b1e060  00000004 00000000 00000001 00000000
+fffffa80`01b1e070  00000000 00000000 00000000 00000000
+fffffa80`01b1e080  00000000 00000000 00000000 00000000
+
+termdd!IcaBindChannel+0x55:
+fffff880`03db8f1d 4889bcc8e0000000 mov     qword ptr [rax+rcx*8+0E0h],rdi
+kd> g
+We got a MS_T120, r8=3
+fffffa80`01b1e010  00000002 00000000 03dc0320 fffff880
+fffffa80`01b1e020  00000003 00000000 01b1e090 fffffa80
+fffffa80`01b1e030  01c23468 fffffa80 00000000 00000000
+fffffa80`01b1e040  00800001 00000000 00000000 00000000
+fffffa80`01b1e050  01acf4d0 fffffa80 01bdbb60 fffffa80
+fffffa80`01b1e060  00000004 00000000 00000001 00000001
+fffffa80`01b1e070  00000000 00000000 00000000 00000000
+fffffa80`01b1e080  00000000 00000000 00000000 00000000
+
+termdd!IcaBindVirtualChannels+0x19e:
+fffff880`03db87c6 e8fd060000      call    termdd!IcaBindChannel (fffff880`03db8ec8)
+kd> g
+rsi=3 and rbp=5
+fffffa80`01b1e010  00000002 00000000 03dc0320 fffff880
+fffffa80`01b1e020  00000003 00000000 01b1e090 fffffa80
+fffffa80`01b1e030  01c23468 fffffa80 00000000 00000000
+fffffa80`01b1e040  00800001 00000000 00000000 00000000
+fffffa80`01b1e050  01acf4d0 fffffa80 01bdbb60 fffffa80
+fffffa80`01b1e060  00000004 00000000 00000001 00000001
+fffffa80`01b1e070  00000000 00000000 00000000 00000000
+fffffa80`01b1e080  00000000 00000000 00000000 00000000
+
+termdd!IcaBindChannel+0x55:
+fffff880`03db8f1d 4889bcc8e0000000 mov     qword ptr [rax+rcx*8+0E0h],rdi
+kd> g
+rsi=7 and rbp=5
+fffffa80`0298c340  00000002 00000000 03dc0320 fffff880
+fffffa80`0298c350  00000002 00000000 0298c3c0 fffffa80
+fffffa80`0298c360  01b1e090 fffffa80 00000000 00000000
+fffffa80`0298c370  00800001 00000000 00000000 00000000
+fffffa80`0298c380  00000000 00000000 01bdbb60 fffffa80
+fffffa80`0298c390  00000004 00000000 00000001 00000000
+fffffa80`0298c3a0  00000000 00000000 00000000 00000000
+fffffa80`0298c3b0  00000000 00000000 00000000 00000000
+
+termdd!IcaBindChannel+0x55:
+fffff880`03db8f1d 4889bcc8e0000000 mov     qword ptr [rax+rcx*8+0E0h],rdi
+kd> g
+rsi=0 and rbp=0
+fffffa80`01a91c90  00000002 00000000 03dc0320 fffff880
+fffffa80`01a91ca0  00000002 00000000 01a91d10 fffffa80
+fffffa80`01a91cb0  03238ce0 fffffa80 00000000 00000000
+fffffa80`01a91cc0  00800001 00000000 00000000 00000000
+fffffa80`01a91cd0  00000000 00000000 035f0b60 fffffa80
+fffffa80`01a91ce0  00000004 00000000 00000001 00000000
+fffffa80`01a91cf0  00000000 00000000 00000000 00000000
+fffffa80`01a91d00  00000000 00000000 00000000 00000000
+
+termdd!IcaBindChannel+0x55:
+fffff880`03db8f1d 4889bcc8e0000000 mov     qword ptr [rax+rcx*8+0E0h],rdi
+kd> g
+rsi=0 and rbp=1
+fffffa80`01bd29b0  00000002 00000000 03dc0320 fffff880
+fffffa80`01bd29c0  00000002 00000000 01bd2a30 fffffa80
+fffffa80`01bd29d0  01a91d10 fffffa80 00000000 00000000
+fffffa80`01bd29e0  00800001 00000000 00000000 00000000
+fffffa80`01bd29f0  00000000 00000000 035f0b60 fffffa80
+fffffa80`01bd2a00  00000004 00000000 00000001 00000000
+fffffa80`01bd2a10  00000000 00000000 00000000 00000000
+fffffa80`01bd2a20  00000000 00000000 00000000 00000000
+
+termdd!IcaBindChannel+0x55:
+fffff880`03db8f1d 4889bcc8e0000000 mov     qword ptr [rax+rcx*8+0E0h],rdi
+kd> g
+rsi=0 and rbp=3
+fffffa80`01ac4120  00000002 00000000 03dc0320 fffff880
+fffffa80`01ac4130  00000002 00000000 01ac41a0 fffffa80
+fffffa80`01ac4140  01bd2a30 fffffa80 00000000 00000000
+fffffa80`01ac4150  00800001 00000000 00000000 00000000
+fffffa80`01ac4160  00000000 00000000 035f0b60 fffffa80
+fffffa80`01ac4170  00000004 00000000 00000001 00000000
+fffffa80`01ac4180  00000000 00000000 00000000 00000000
+fffffa80`01ac4190  00000000 00000000 00000000 00000000
+
+termdd!IcaBindChannel+0x55:
+fffff880`03db8f1d 4889bcc8e0000000 mov     qword ptr [rax+rcx*8+0E0h],rdi
+kd> g
+rsi=0 and rbp=4
+fffffa80`01a283a0  00000002 00000000 03dc0320 fffff880
+fffffa80`01a283b0  00000002 00000000 01a28420 fffffa80
+fffffa80`01a283c0  01ac41a0 fffffa80 00000000 00000000
+fffffa80`01a283d0  00800001 00000000 00000000 00000000
+fffffa80`01a283e0  00000000 00000000 035f0b60 fffffa80
+fffffa80`01a283f0  00000004 00000000 00000001 00000000
+fffffa80`01a28400  00000000 00000000 00000000 00000000
+fffffa80`01a28410  00000000 00000000 00000000 00000000
+
+termdd!IcaBindChannel+0x55:
+fffff880`03db8f1d 4889bcc8e0000000 mov     qword ptr [rax+rcx*8+0E0h],rdi
+kd> g
+
+*** Fatal System Error: 0x0000000a
+                       (0x0000000000000000,0x0000000000000002,0x0000000000000001,0xFFFFF8000267B3DE)
+
+Break instruction exception - code 80000003 (first chance)
+
+A fatal system error has occurred.
+Debugger entered on first try; Bugcheck callbacks have not been invoked.
+
+A fatal system error has occurred.
+
+Connected to Windows 7 7601 x64 target at (Wed Jul 24 11:10:29.356 2019 (UTC - 7:00)), ptr64 TRUE
+Loading Kernel Symbols
+...............................................................
+................................................................
+...............
+Loading User Symbols
+................................................................
+................
+Loading unloaded module list
+.....Unable to enumerate user-mode unloaded modules, Win32 error 0n30
+
+************* Symbol Loading Error Summary **************
+Module name            Error
+SharedUserData         No error - symbol load deferred
+
+You can troubleshoot most symbol related issues by turning on symbol loading diagnostics (!sym noisy) and repeating the command that caused symbols to be loaded.
+You should also verify that your symbol search path (.sympath) is correct.
+*******************************************************************************
+*                                                                             *
+*                        Bugcheck Analysis                                    *
+*                                                                             *
+*******************************************************************************
+
+Use !analyze -v to get detailed debugging information.
+
+BugCheck A, {0, 2, 1, fffff8000267b3de}
+
+Probably caused by : termdd.sys ( termdd!IcaDereferenceChannel+8c )
+
+Followup:     MachineOwner
+---------
+
+nt!RtlpBreakWithStatusInstruction:
+fffff800`02695490 cc              int     3
+kd> kb
+ # RetAddr           : Args to Child                                                           : Call Site
+00 fffff800`02784d92 : 00000000`00000000 fffffa80`01bcc510 00000000`00000065 fffff800`026d9178 : nt!RtlpBreakWithStatusInstruction
+01 fffff800`02785b7e : 00000000`00000003 00000000`00000000 fffff800`026d99d0 00000000`0000000a : nt!KiBugCheckDebugBreak+0x12
+02 fffff800`0269d744 : 00000000`00000000 00000000`00000000 00000000`00000000 fffff800`02647790 : nt!KeBugCheck2+0x71e
+03 fffff800`0269cbe9 : 00000000`0000000a 00000000`00000000 00000000`00000002 00000000`00000001 : nt!KeBugCheckEx+0x104
+04 fffff800`0269b860 : fffffa80`01a28580 00000000`00000080 fffffa80`032b6840 fffffa80`01b1e028 : nt!KiBugCheckDispatch+0x69
+05 fffff800`0267b3de : fffffa80`01b1e028 00000000`00000005 00000000`00000020 fffffa80`01b1e010 : nt!KiPageFault+0x260
+06 fffff880`03db85ac : fffffa80`018e6670 fffffa80`018e6880 00000000`00000000 fffffa80`01b1e028 : nt!ExDeleteResourceLite+0xce
+07 fffff880`03db83c3 : fffffa80`018e6670 fffffa80`018e6670 fffffa80`01b1e010 00000000`00000000 : termdd!IcaDereferenceChannel+0x8c
+08 fffff880`03db7e01 : fffffa80`01bdabf0 fffff880`03db7e01 fffff8a0`02384000 fffff880`027a3550 : termdd!IcaChannelInputInternal+0x5af
+09 fffff880`02b0e178 : fffff8a0`0234f010 fffff880`02af0f60 fffff8a0`02384000 00000000`00000045 : termdd!IcaChannelInput+0xdd
+0a fffff880`02aeb6f8 : 00000000`00000000 fffffa80`00000001 00000000`00000000 00000000`00000000 : RDPWD!SignalBrokenConnection+0x54
+0b fffff880`03db7d8f : fffffa80`01bdabf0 fffffa80`01ba0010 fffff880`027a3e30 fffffa80`03047bb0 : RDPWD!WDLIB_MCSIcaChannelInput+0x90
+0c fffff880`02adb603 : 00000000`d00a0032 fffff880`00000040 fffffa80`01bcc510 fffff800`026aa078 : termdd!IcaChannelInput+0x6b
+0d fffff880`02adaf5c : 00000000`00000001 00000000`00000000 00000000`d00a0032 00000000`00000001 : tssecsrv!CDefaultDataManager::Disconnect+0x3f
+0e fffff880`02ada7c2 : fffffa80`01afc488 fffffa80`00000000 00000000`00000036 fffff800`00000000 : tssecsrv!CFilter::FilterIncomingData+0x2a0
+0f fffff880`03dbb1f8 : fffff800`0280fe80 fffffa80`029b6370 00000000`00000000 00000000`00000000 : tssecsrv!ScrRawInput+0x82
+10 fffff880`02ad04c5 : fffffa80`01afc470 fffffa80`01ba0048 00000000`00000000 fffffa80`01afc470 : termdd!IcaRawInput+0x50
+11 fffff880`03dbbf3e : fffffa80`01ba0010 fffffa80`038114a0 fffffa80`01abf010 fffffa80`01a35e00 : tdtcp!TdInputThread+0x465
+12 fffff880`03dbaae3 : fffffa80`01a85b40 fffffa80`01a35e00 fffffa80`028aeae0 fffffa80`01abf010 : termdd!IcaDriverThread+0x5a
+13 fffff880`03db99e9 : fffffa80`030dc140 fffff880`027a4898 fffff880`027a48a0 00000000`00000000 : termdd!IcaDeviceControlStack+0x827
+14 fffff880`03db9689 : 00000000`00000000 fffffa80`01a35e00 00000000`00000000 00000000`00000000 : termdd!IcaDeviceControl+0x75
+15 fffff800`029b7f97 : fffffa80`0284dd10 fffffa80`0284dd10 fffff880`027a4b60 fffffa80`0284dd10 : termdd!IcaDispatch+0x215
+16 fffff800`029b87f6 : 00000000`00000000 00000000`00000000 00000000`00000000 00000000`00000000 : nt!IopXxxControlFile+0x607
+17 fffff800`0269c8d3 : 00000000`80000001 fffff800`02ae1796 00000000`00000000 00000000`00000000 : nt!NtDeviceIoControlFile+0x56
+18 00000000`771f138a : 000007fe`f8bf13a8 00000000`00000000 00000000`00000000 00000000`00000000 : nt!KiSystemServiceCopyEnd+0x13
+19 000007fe`f8bf13a8 : 00000000`00000000 00000000`00000000 00000000`00000000 00000000`00000000 : ntdll!ZwDeviceIoControlFile+0xa
+1a 000007fe`f8bf2f9e : 00000000`00000000 00000000`80000000 00000000`00000000 00000000`00000000 : ICAAPI!IcaIoControl+0x44
+1b 00000000`76f9652d : 00000000`00000000 00000000`00000000 00000000`00000000 00000000`00000000 : ICAAPI!IcaInputThreadUserMode+0x4e
+1c 00000000`771cc521 : 00000000`00000000 00000000`00000000 00000000`00000000 00000000`00000000 : kernel32!BaseThreadInitThunk+0xd
+1d 00000000`00000000 : 00000000`00000000 00000000`00000000 00000000`00000000 00000000`00000000 : ntdll!RtlUserThreadStart+0x1d
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://www.carbonblack.com/resource/modern-bank-heists-cyberattacks-lateral-movement-in-the-financial-sector/
+
+https://www.trendmicro.com/vinfo/us/security/news/cybercrime-and-digital-threats/banks-under-attack-tactics-and-techniques-used-to-target-financial-organizations
+
+https://cdn2.hubspot.net/hubfs/3699194/Content/Research%20Reports/IntSights_Financial_Services_Landscape-Final.pdf
+
+
+
+https://blog.stealthbits.com/lateral-movement-with-crackmapexec/
+
+https://github.com/topics/redteam
+https://doc.lagout.org/rtfm-red-team-field-manual.pdf
+https://github.com/topics/redteaming
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      && (v2->MinorFunction = v2->Parameters.Read.ByteOffset.LowPart >> 2, off_1C001E630[v7]) )
+    {
+      result = sub_1C000C240(v3, v2, v6, v5);
+    }
+    else
+    {
+      if ( *(_DWORD *)&stru_1C0029380.StackSize & 0x100000 )
+        sub_1C007714C(0xBu, (__int64)&unk_1C0020E38, v6);
+*/
